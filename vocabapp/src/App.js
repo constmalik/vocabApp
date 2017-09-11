@@ -21,7 +21,7 @@ class App extends Component {
   languageTranslate: "",
   userAnswer: "",
   showWords: [
-    {english: [
+    {English: [
       "cat ",
       "dog ",
       "man ",
@@ -33,7 +33,7 @@ class App extends Component {
       "plane ",
       "butterfly "
     ]},
-    {spanish: [
+    {Spanish: [
       "gato ",
       "perro ",
       "hombe ",
@@ -45,7 +45,7 @@ class App extends Component {
       "avión ",
       "mariposa "
     ]},
-    {french: [
+    {French: [
       "chat ",
       "chien ",
       "homme ",
@@ -57,7 +57,7 @@ class App extends Component {
       "avion ",
       "papillon "
     ]},
-    {german: [
+    {German: [
       "Katz ",
       "Hund ",
       "Mann ",
@@ -73,66 +73,65 @@ class App extends Component {
   ]
 }
   }
+  //get what language the user wants to see
   handleLanguageShown = (e) => {
     this.setState({
       languageShown: e.target.value
     });
   }
-
+  //get language user will translate to
   handleLanguageTranslate = (e) => {
     this.setState({
       languageTranslate: e.target.value
     });
   }
-
-  handleStartClick = (language, i) => {
+  //when start clicked word in specified language should be displayed
+  handleStartClick = (i) => {
     let wordsArray = this.state.showWords.slice();
     let stateCopy = Object.assign({}, this.state.board);
-    let english = wordsArray.english;
-    let spanish = wordsArray.spanish;
-    let french = wordsArray.french;
-    let german = wordsArray.german;
+    // let english = wordsArray.English;
+    // let spanish = wordsArray.spanish;
+    // let french = wordsArray.french;
+    // let german = wordsArray.german;
 
-    // let languageArray = this.state.showWords.slice();
-    if(stateCopy.languageShown === english || stateCopy.languageShown === spanish || stateCopy.languageShown === french || stateCopy.languageShown === german) {
+
+
+    if(stateCopy.languageShown === "English" || stateCopy.languageShown === "Spanish" || stateCopy.languageShown === "French" || stateCopy.languageShown === "German") {
       //this was where i got stuck.
-      return;
-    }
-    if(stateCopy.languageTranslate === english || stateCopy.languageTranslate === spanish || stateCopy.languageTranslate === french || stateCopy.languageTranslate === german) {
-      return;
+      console.log(wordsArray);
     }
     this.setState({
       showWords: wordsArray
     });
   }
 
+  //get user's answer
   handleUserAnswer = (e) => {
     this.setState({
       userAnswer: e.target.value
     })
   }
-
+  //clicked when user wants to check there answer
   handleTranslation = () => {
 
-    let answer = this.state.userAnswer;
-    // let language = this.state.languageTranslate;
-
-    if (answer === "") {
-      return true;
+    let userInput = this.state.userAnswer;
+    //checking to see if text click is valid
+    if (userInput === "" || userInput === " ") {
+      return;
     }
    }
+   handleReset = () => {
+     this.setState({
+       languageShown: "",
+       languageTranslate: "",
+       userAnswer: ""
+     })
+   }
   render() {
-    let word = this.state.showWords.map((language, i) => {
+    let word = this.state.words.map((language, i) => {
       return (
         <div id="words" key={i}>
-          <p>{language.english}</p>
-        </div>
-      )
-    })
-    let answer = this.state.showWords.map((language, i) => {
-      return (
-        <div>
-          {language.spanish}
+          <p>{language.en}</p>
         </div>
       )
     })
@@ -140,6 +139,7 @@ class App extends Component {
       <div className="container">
         <div id="header">
           <h1>Vocabulary Study App</h1>
+          <h2>Select your languages</h2>
         </div>
         <section className="questions">
           <div className="begin firstQuestion">
@@ -161,16 +161,16 @@ class App extends Component {
             </select>
           </div>
           <button id="start" onClick={() => this.handleStartClick()}>Start</button>
+          <button id="reset" onClick={() => this.handleReset()}>Reset</button>
         </section>
         <section id="flashcards">
           <div id="flashcard">
             {word}
             <label>What is the translation? </label>
-            <input type="text" onChange={this.handleUserAnswer}/>
+            <input type="text" onChange={this.handleUserAnswer} value={this.state.userAnswer}/>
             <button onClick={this.handleTranslation}>Translate</button>
           </div>
           <div id="answer">
-          {answer}
             <p>This will be the answer</p>
           </div>
         </section>
