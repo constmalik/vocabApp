@@ -1,0 +1,29 @@
+.container {
+  text-align: center;
+  clear: both;
+  width: 100%;
+}
+.begin {
+  margin: 10px;
+}
+.questions {
+  display: inline-block;
+  border: 1px solid;
+}
+#flashcards {
+/*   border: 1px solid; */
+  margin: 15px;
+
+}
+#flashcard {
+  float: left;
+  border: 2px solid;
+  height: 250px;
+  width: 500px;
+}
+#answer {
+  float: right;
+  border: 2px solid;
+  height: 250px;
+  width: 500px;
+}
